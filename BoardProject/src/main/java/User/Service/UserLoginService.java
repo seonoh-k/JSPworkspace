@@ -7,7 +7,7 @@ import java.sql.Connection;
 
 import static Util.DBUtil.*;
 public class UserLoginService {
-    public boolean userLogin(int id, String pwd) {
+    public boolean userLogin(String id, String pwd) {
 
         boolean isLoginSuccess = false;
         Connection con = getConnection();

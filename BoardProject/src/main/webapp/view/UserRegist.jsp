@@ -19,10 +19,6 @@
                 <td><input type = "password" name = "pwd" id = "pwd"></td>
             </tr>
             <tr>
-                <td>이름</td>
-                <td><input type = "text" name = "name" id = "name"></td>
-            </tr>
-            <tr>
                 <td>이메일</td>
                 <td>
                     <input type = "text" name = "user_email" id = "user_email">@
@@ -33,6 +29,10 @@
                         <option value = "kakao.com">kakao.com</option>
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <td>이름</td>
+                <td><input type = "text" name = "name" id = "name"></td>
             </tr>
             <tr>
                 <td>성별</td>

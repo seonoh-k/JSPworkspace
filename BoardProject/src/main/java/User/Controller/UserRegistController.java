@@ -34,23 +34,34 @@ public class UserRegistController extends HttpServlet {
 
 
         String email = user_email + "@" + domain;
-        String birth = year + "-" + month + "-" + day;
+        String user_birth = year + "-" + month + "-" + day;
         PrintWriter out = resp.getWriter();
 
-        int user_id = Integer.parseInt(id);
-        Date user_birth = Date.valueOf(birth);
 
-        newUser = new UserDTO(user_id, email, name, pwd, gender, user_birth);
+        Date birth = Date.valueOf(user_birth);
+
+        newUser = new UserDTO(id, email, name, pwd, gender, birth);
+
         try {
             boolean isRegisted = userRegistService.registUser(newUser);
 
             if(isRegisted) {
-                out.println("<p>Regist Success</p>");
-            }else {
-                out.println("<p>Regist Denied</p>");
+                out.println("<html><body>");
+                out.println("<script type='text/javascript'>");
+                out.println("alert('회원가입이 완료되었습니다.');");
+                out.println("window.location.href = 'main.jsp';");
+                out.println("</script>");
+                out.println("</body></html>");
             }
+
         }catch(Exception e) {
-            e.printStackTrace();
+            out.println("<html><body>");
+            out.println("<script type='text/javascript'>");
+            out.println("alert('회원가입에 실패했습니다. 다시 시도해주세요');");
+            out.println("window.location.href = 'UserRegist.jsp';");
+            out.println("</script>");
+            out.println("</body></html>");
         }
+
     }
 }

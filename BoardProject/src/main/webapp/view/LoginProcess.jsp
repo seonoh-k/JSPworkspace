@@ -8,6 +8,5 @@
     String id = request.getParameter("id");
     String pwd = request.getParameter("pwd");
 
-    RequestDispatcher dis = request.getRequestDispatcher("/UserLoginController");
-    dis.forward(request, response);
+    request.getRequestDispatcher("/UserLoginController").forward(request, response);
 %>

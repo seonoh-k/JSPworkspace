@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"  isELIgnored="false"%>
 
-
+<% String id = (String)session.getAttribute("id");
+    if(id != null) {
+        id = "auth_header";
+    }else {
+        id = "guest_header";
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +27,7 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=utf-8");
     %>
-    <jsp:include page="/static/html/guest_header.html"/>
+    <jsp:include page='<%="/static/html/"+id+".html"%>'/>
     <!-- 여기다가 MAIN 코드 작성-->
     <!-- 전체 배경색 var(--black-bg-container);-->
     <!-- Content 배경색 var(--black-5);-->

@@ -1,11 +1,12 @@
 package User.Service;
 
+import static Util.DBUtil.*;
 import User.DAO.UserDAO;
 import User.DTO.UserDTO;
 
 import java.sql.Connection;
 
-import static Util.DBUtil.*;
+
 public class UserRegistService {
 
     public boolean registUser(UserDTO newUser) throws Exception{

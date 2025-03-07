@@ -25,8 +25,8 @@ public class DBUtil {
         try {
 
             String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-            String id = "boardDB";
-            String pw = "boardDB";
+            String id = "BoardPr";
+            String pw = "BoardPr";
 
 
             con = DriverManager.getConnection(url, id, pw);

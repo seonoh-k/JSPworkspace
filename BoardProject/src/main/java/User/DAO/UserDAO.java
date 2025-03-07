@@ -1,13 +1,12 @@
 package User.DAO;
 
+import static Util.DBUtil.*;
 import User.DTO.UserDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import static Util.DBUtil.*;
 public class UserDAO {
     Connection con;
 
@@ -15,48 +14,37 @@ public class UserDAO {
         this.con = con;
     }
 
-    public boolean login(int id, String pwd) throws Exception {
+    public boolean login(String id, String pwd) throws Exception {
 
         String sql = "SELECT USER_ID, USER_PASS FROM USERS WHERE USER_ID = ? AND USER_PASS = ?";
-        PreparedStatement psmt = null;
-        ResultSet rs = null;
         boolean isLoginSuccess = false;
 
-        try {
+        try (PreparedStatement psmt = con.prepareStatement(sql)) {
 
-            psmt = con.prepareStatement(sql);
-
-            psmt.setInt(1,id);
+            psmt.setString(1,id);
             psmt.setString(2,pwd);
 
-            rs = psmt.executeQuery();
-
-            if(rs != null) {
-                isLoginSuccess = true;
+            try (ResultSet rs = psmt.executeQuery()) {
+                if(rs.next()) {
+                    isLoginSuccess = true;
+                }
             }
-
         }catch(SQLException e) {
             e.printStackTrace();
-        }finally {
-            close(rs);
-            close(psmt);
         }
         return isLoginSuccess;
     }
     public int insertUser(UserDTO newUser) throws Exception{
 
-        String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement psmt = null;
+        String sql = "INSERT INTO USERS VALUES (USER_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)";
         int result = 0;
 
-        try {
+        try (PreparedStatement psmt = con.prepareStatement(sql)) {
 
-            psmt = con.prepareStatement(sql);
-
-            psmt.setInt(1, newUser.getUser_id());
-            psmt.setString(2, newUser.getUser_email());
-            psmt.setString(3, newUser.getUser_name());
-            psmt.setString(4, newUser.getUser_pass());
+            psmt.setString(1, newUser.getUser_id());
+            psmt.setString(2, newUser.getUser_pass());
+            psmt.setString(3, newUser.getUser_email());
+            psmt.setString(4, newUser.getUser_name());
             psmt.setString(5, newUser.getUser_gender());
             psmt.setDate(6, newUser.getUser_birth());
 
@@ -65,8 +53,6 @@ public class UserDAO {
 
         }catch(SQLException e) {
             e.printStackTrace();
-        }finally {
-            close(psmt);
         }
 
         return result;
