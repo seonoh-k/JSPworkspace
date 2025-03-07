@@ -4,9 +4,10 @@ import User.DTO.UserDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static User.Util.UserUtil.*;
+import static Util.DBUtil.*;
 public class UserDAO {
     Connection con;
 
@@ -14,6 +15,34 @@ public class UserDAO {
         this.con = con;
     }
 
+    public boolean login(int id, String pwd) throws Exception {
+
+        String sql = "SELECT USER_ID, USER_PASS FROM USERS WHERE USER_ID = ? AND USER_PASS = ?";
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+        boolean isLoginSuccess = false;
+
+        try {
+
+            psmt = con.prepareStatement(sql);
+
+            psmt.setInt(1,id);
+            psmt.setString(2,pwd);
+
+            rs = psmt.executeQuery();
+
+            if(rs != null) {
+                isLoginSuccess = true;
+            }
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }finally {
+            close(rs);
+            close(psmt);
+        }
+        return isLoginSuccess;
+    }
     public int insertUser(UserDTO newUser) throws Exception{
 
         String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?, ?)";

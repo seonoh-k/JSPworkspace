@@ -2,17 +2,19 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 
 <%
-    request.setCharacterEncoding("UTF-8");
-    response.setContentType("text/html; charset=UTF-8");
 
     String id = request.getParameter("id");
     String pwd = request.getParameter("pwd");
     String name = request.getParameter("name");
-    String email = request.getParameter("email");
+    String usr_email = request.getParameter("user_email");
+    String domain = request.getParameter("domain");
     String gender = request.getParameter("gender");
-    String birth = request.getParameter("birth");
+    String year = request.getParameter("year");
+    String month = request.getParameter("month");
+    String day = request.getParameter("day");
 
-    RequestDispatcher dis = request.getRequestDispatcher("/UserRegistServlet");
+
+    RequestDispatcher dis = request.getRequestDispatcher("/UserRegistController");
     dis.forward(request, response);
 
 %>

@@ -9,6 +9,19 @@
     <title></title>
 </head>
 <body>
-    어쩌라구용
+    <form method = "get" action = "LoginProcess.jsp">
+        <table>
+            <tr>
+                <td>아이디</td>
+                <td><input type = "text" name = "id" id = "id"></td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td><input type = "password" name = "pwd" id = "pwd"></td>
+            </tr>
+        </table>
+        <br>
+        <input type = "submit" value = "로그인">
+    </form>
 </body>
 </html>

@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 
-@WebServlet("/UserRegistServlet")
-public class UserRegistServlet extends HttpServlet {
+@WebServlet("/UserRegistController")
+public class UserRegistController extends HttpServlet {
 
     UserDTO newUser = null;
     UserRegistService userRegistService = new UserRegistService();
@@ -23,12 +23,18 @@ public class UserRegistServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
 
         String id = req.getParameter("id");
-        String email = req.getParameter("email");
+        String user_email = req.getParameter("user_email");
+        String domain = req.getParameter("domain");
         String name = req.getParameter("name");
         String pwd = req.getParameter("pwd");
         String gender = req.getParameter("gender");
-        String birth = req.getParameter("birth");
+        String year = req.getParameter("year");
+        String month = req.getParameter("month");
+        String day = req.getParameter("day");
 
+
+        String email = user_email + "@" + domain;
+        String birth = year + "-" + month + "-" + day;
         PrintWriter out = resp.getWriter();
 
         int user_id = Integer.parseInt(id);

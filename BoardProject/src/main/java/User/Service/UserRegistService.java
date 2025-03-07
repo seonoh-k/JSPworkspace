@@ -5,7 +5,7 @@ import User.DTO.UserDTO;
 
 import java.sql.Connection;
 
-import static User.Util.UserUtil.*;
+import static Util.DBUtil.*;
 public class UserRegistService {
 
     public boolean registUser(UserDTO newUser) throws Exception{
