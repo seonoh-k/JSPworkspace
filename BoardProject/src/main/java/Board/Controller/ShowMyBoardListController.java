@@ -12,19 +12,22 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/ShowBoardListController")
-public class ShowBoardListController extends HttpServlet {
+@WebServlet("/ShowMyBoardListController")
+public class ShowMyBoardListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
         ShowBoardListService showBoardListService = new ShowBoardListService();
 
+
+        int user_no = (Integer)session.getAttribute("user_no");
+
         try {
-            ArrayList<BoardDTO> boardList = showBoardListService.selectBoardList();
+            ArrayList<BoardDTO> boardList = showBoardListService.selectMyBoardList(user_no);
 
             req.setAttribute("boardList", boardList);
-            req.getRequestDispatcher("view/ShowBoardList.jsp").forward(req, resp);
+            req.getRequestDispatcher("view/ShowMyBoardList.jsp").forward(req, resp);
         }catch(Exception e) {
             e.printStackTrace();
         }

@@ -14,10 +14,9 @@ public class UserDAO {
         this.con = con;
     }
 
-    public boolean login(String id, String pwd) throws Exception {
+    public int login(String id, String pwd) throws Exception {
 
-        String sql = "SELECT USER_ID, USER_PASS FROM USERS WHERE USER_ID = ? AND USER_PASS = ?";
-        boolean isLoginSuccess = false;
+        String sql = "SELECT USER_ID, USER_PASS, USER_NO FROM USERS WHERE USER_ID = ? AND USER_PASS = ?";
 
         try (PreparedStatement psmt = con.prepareStatement(sql)) {
 
@@ -26,13 +25,13 @@ public class UserDAO {
 
             try (ResultSet rs = psmt.executeQuery()) {
                 if(rs.next()) {
-                    isLoginSuccess = true;
+                    return rs.getInt("USER_NO");
                 }
             }
         }catch(SQLException e) {
             e.printStackTrace();
         }
-        return isLoginSuccess;
+        return 0;
     }
     public int insertUser(UserDTO newUser) throws Exception{
 

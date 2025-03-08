@@ -21,13 +21,14 @@ public class UserLoginController extends HttpServlet {
         String pwd = req.getParameter("pwd");
 
         UserLoginService userLoginService = new UserLoginService();
-        boolean isLoginSuccess = userLoginService.userLogin(id, pwd);
+        int user_no = userLoginService.userLogin(id, pwd);
         PrintWriter out = resp.getWriter();
 
-        if(isLoginSuccess) {
+        if(user_no != 0) {
             HttpSession session = req.getSession();
             session.setAttribute("id", id);
             session.setAttribute("pwd", pwd);
+            session.setAttribute("user_no", user_no);
             resp.sendRedirect("main.jsp");
         }else {
             out.println("<html><body>");

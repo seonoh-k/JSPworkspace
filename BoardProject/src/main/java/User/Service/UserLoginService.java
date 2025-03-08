@@ -7,18 +7,19 @@ import java.sql.Connection;
 
 import static Util.DBUtil.*;
 public class UserLoginService {
-    public boolean userLogin(String id, String pwd) {
+    public int userLogin(String id, String pwd) {
 
         boolean isLoginSuccess = false;
         Connection con = getConnection();
         UserDAO userDAO = new UserDAO(con);
+        int user_no = 0;
 
         try {
-            isLoginSuccess = userDAO.login(id, pwd);
+            user_no = userDAO.login(id, pwd);
         }catch(Exception e) {
             e.printStackTrace();
         }
 
-        return isLoginSuccess;
+        return user_no;
     }
 }
