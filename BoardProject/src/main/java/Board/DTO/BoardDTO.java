@@ -20,6 +20,7 @@ public class BoardDTO {
 
     public BoardDTO(int board_no, int user_no, String title, String content, Timestamp create_at, Timestamp update_at, Timestamp delete_at) {
         super();
+        this.board_no = board_no;
         this.user_no = user_no;
         this.title = title;
         this.content = content;
@@ -29,6 +30,7 @@ public class BoardDTO {
     }
     public BoardDTO(int board_no, int user_no, String title, Timestamp create_at, Timestamp update_at, String user_id) {
         super();
+        this.board_no = board_no;
         this.user_no = user_no;
         this.title = title;
         this.create_at = create_at;

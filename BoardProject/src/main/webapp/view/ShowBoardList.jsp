@@ -30,8 +30,8 @@
                 for(BoardDTO board : boardList) {
                     String date = (board.getUpdate_at() == null) ? sdf.format(board.getCreate_at()) : sdf.format(board.getUpdate_at());
         %>
-        <tr>
-            <td><%= board.getBoard_no() %></td>
+        <tr onclick="location.href='ShowBoardDetailProcess.jsp?board_no=<%= board.getBoard_no() %>'">
+            <td name = "board_no" id = "board_no"><%= board.getBoard_no() %></td>
             <td colspan=3><%= board.getTitle() %></td>
             <td><%= board.getUser_id() %></td>
             <td><%= date %></td>
