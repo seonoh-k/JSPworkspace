@@ -37,6 +37,13 @@ public class BoardDTO {
         this.update_at = update_at;
         this.user_id = user_id;
     }
+    public BoardDTO(int board_no, String title, String content, Timestamp update_at) {
+        super();
+        this.board_no = board_no;
+        this.title = title;
+        this.content = content;
+        this.update_at = update_at;
+    }
     public BoardDTO(int user_no, String title, String content) {
         super();
         this.user_no = user_no;

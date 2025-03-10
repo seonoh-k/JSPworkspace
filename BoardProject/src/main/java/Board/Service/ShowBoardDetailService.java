@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import static Util.DBUtil.*;
 public class ShowBoardDetailService{
-    public ArrayList<BoardDetailDTO> selectBoardDetail (int board_no) throws Exception {
+    public ArrayList<BoardDetailDTO> selectBoardDetail (String board_no) throws Exception {
 
         Connection con = getConnection();
         ArrayList<BoardDetailDTO> boardDetailList = null;

@@ -17,7 +17,6 @@ public class DeleteBoardController extends HttpServlet {
 
         String board_no = req.getParameter("board_no");
         boolean isDeleteSuccess = false;
-        String referer = resp.getHeader("Referer");
         PrintWriter out = resp.getWriter();
 
         DeleteBoardService deleteBoardService = new DeleteBoardService();
@@ -30,7 +29,7 @@ public class DeleteBoardController extends HttpServlet {
                 out.println("<html><body>");
                 out.println("<script type='text/javascript'>");
                 out.println("alert('게시글을 삭제했습니다.');");
-                out.println("window.location.href = '" + referer + "';");
+                out.println("window.location.href = 'ShowBoardListProcess.jsp';");
                 out.println("</script>");
                 out.println("</body></html>");
                 return;
@@ -38,7 +37,7 @@ public class DeleteBoardController extends HttpServlet {
                 out.println("<html><body>");
                 out.println("<script type='text/javascript'>");
                 out.println("alert('게시글 삭제에 실패했습니다.');");
-                out.println("window.location.href = '" + referer + "';");
+                out.println("window.location.href = 'ShowBoardListProcess.jsp';");
                 out.println("</script>");
                 out.println("</body></html>");
                 return;

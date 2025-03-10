@@ -44,7 +44,7 @@ public class BoardDAO {
     public ArrayList<BoardDTO> selectBoardList() throws Exception{
 
         String sql = "SELECT BOARD_NO, USER_NO, TITLE, CREATE_AT, UPDATE_AT, USER_ID " +
-                "FROM BOARDS JOIN USERS USING (USER_NO) ORDER BY CREATE_AT DESC";
+                "FROM BOARDS JOIN USERS USING (USER_NO) ORDER BY CREATE_AT";
         BoardDTO newBoard = null;
         ArrayList<BoardDTO> boardList = new ArrayList<>();
 
@@ -100,7 +100,7 @@ public class BoardDAO {
         return boardList;
     }
 
-    public ArrayList<BoardDetailDTO> selectBoardDetailList(int board_no) {
+    public ArrayList<BoardDetailDTO> selectBoardDetailList(String board_no) {
 
         String sql = "SELECT C.COMMENT_NO, B.BOARD_NO, U2.USER_ID AS B_USER_ID, U1.USER_ID AS C_USER_ID, B.TITLE, " +
                 "B.CONTENT AS B_CONTENT, C.CONTENT AS C_CONTENT, " +
@@ -111,13 +111,13 @@ public class BoardDAO {
                 "LEFT JOIN COMMENTS C ON B.BOARD_NO = C.BOARD_NO " +
                 "LEFT JOIN USERS U1 ON C.USER_NO = U1.USER_NO " +
                 "LEFT JOIN USERS U2 ON B.USER_NO = U2.USER_NO " +
-                "WHERE B.BOARD_NO = ?";
+                "WHERE B.BOARD_NO = ? ORDER BY C.CREATE_AT";
         BoardDetailDTO boardDetail = null;
         ArrayList<BoardDetailDTO> boardDetailList = new ArrayList<>();
 
         try (PreparedStatement psmt = con.prepareStatement(sql)) {
 
-            psmt.setInt(1, board_no);
+            psmt.setInt(1, Integer.parseInt(board_no));
 
             try (ResultSet rs = psmt.executeQuery()) {
                 while(rs.next()) {
@@ -135,7 +135,7 @@ public class BoardDAO {
                     Timestamp c_delete_at = rs.getTimestamp("C_DELETE_AT");
                     int ref = rs.getInt("REF");
 
-                    boardDetail = new BoardDetailDTO(comment_no, board_no, b_user_id, c_user_id, title, b_content, c_content, b_create_at, b_update_at, c_create_at, c_update_at, c_delete_at, ref);
+                    boardDetail = new BoardDetailDTO(comment_no, boardNo, b_user_id, c_user_id, title, b_content, c_content, b_create_at, b_update_at, c_create_at, c_update_at, c_delete_at, ref);
                     boardDetailList.add(boardDetail);
                 }
             }
@@ -162,5 +162,56 @@ public class BoardDAO {
         }
 
         return result;
+    }
+
+    public BoardDTO selectMyBoard(String board_no) throws Exception{
+
+        String sql = "SELECT * FROM BOARDS WHERE BOARD_NO = ?";
+        BoardDTO modifyBoard = null;
+
+        try (PreparedStatement psmt = con.prepareStatement(sql)) {
+
+            psmt.setInt(1, Integer.parseInt(board_no));
+
+            try (ResultSet rs = psmt.executeQuery()) {
+
+                if(rs.next()) {
+                    int boardNo = rs.getInt("BOARD_NO");
+                    String title = rs.getString("TITLE");
+                    String content = rs.getString("CONTENT");
+                    Timestamp update_at = rs.getTimestamp("UPDATE_AT");
+
+                    modifyBoard = new BoardDTO(boardNo, title, content, update_at);
+                }
+            }
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return modifyBoard;
+    }
+
+    public int updateBoard(String title, String content, String board_no) {
+
+        String sql = "UPDATE BOARDS SET TITLE = ?, CONTENT = ?, UPDATE_AT = ? WHERE BOARD_NO = ?";
+        int result = 0;
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+
+        try (PreparedStatement psmt = con.prepareStatement(sql)) {
+
+            psmt.setString(1, title);
+            psmt.setString(2, content);
+            psmt.setTimestamp(3, timestamp);
+            psmt.setInt(4, Integer.parseInt(board_no));
+
+            result = psmt.executeUpdate();
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
     }
 }

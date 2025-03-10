@@ -19,7 +19,7 @@ public class ShowBoardDetailController extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession(false);
-        int board_no = Integer.parseInt(req.getParameter("board_no"));
+        String board_no = (String)req.getParameter("board_no");
         ArrayList<BoardDetailDTO> boardDetailList = null;
 
         ShowBoardDetailService showBoardDetailService = new ShowBoardDetailService();
@@ -43,5 +43,6 @@ public class ShowBoardDetailController extends HttpServlet {
 
         req.setAttribute("boardDetailList", boardDetailList);
         req.getRequestDispatcher("view/ShowBoardDetail.jsp").forward(req, resp);
+
     }
 }

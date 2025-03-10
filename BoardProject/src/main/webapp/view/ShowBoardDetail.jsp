@@ -32,24 +32,26 @@
             <td colspan=4><%= board.getB_content() %></td>
         </tr>
         <%
-            if(session.getAttribute("user_id") == board.getB_user_id()) {
+            String sessionId = (String)session.getAttribute("id");
+            if(sessionId != null && sessionId.equals(board.getB_user_id())) {
         %>
         <tr>
-            <td><button onclick="location.href='UpdateBoardProcess.jsp?board_no=<%= board.getBoard_no() %>'">수정</button></td>
-            <td><button onclick="javascript:if(confirm(정말 삭제하시겠습니까?)) location.href='DeleteBoardProcess.jsp?board_no=<%= board.getBoard_no() %>'">삭제</button></td>
+            <td><button onclick="location.href='SelectMyBoardProcess.jsp?board_no=<%= board.getBoard_no() %>'">수정</button></td>
+            <td><button onclick="javascript:if(confirm('정말 삭제하시겠습니까?')) location.href='DeleteBoardProcess.jsp?board_no=<%= board.getBoard_no() %>'">삭제</button></td>
         </tr>
         <%
             }
         %>
         <%
-            for (int i=0; i<boardDetailList.size(); i++) {
-                BoardDetailDTO comment = boardDetailList.get(i);
-                String commentDate = (comment.getC_update_at() == null) ? sdf.format(comment.getC_create_at()) : sdf.format(comment.getC_update_at());
+            if (board.getC_create_at() != null) {
+                for (int i=0; i<boardDetailList.size(); i++) {
+                    BoardDetailDTO comment = boardDetailList.get(i);
+                    String commentDate = (comment.getC_update_at() == null) ? sdf.format(comment.getC_create_at()) : sdf.format(comment.getC_update_at());
         %>
         <tr>
             <% if(comment.getRef() == 0) { %>
             <td><%= comment.getC_user_id() %></td>
-            <td><%= comment.getC_content() %></td>
+            <td colspan=2><%= comment.getC_content() %></td>
             <td><%= commentDate %></td>
             <%}else {%>
             <td>↳</td>
@@ -59,6 +61,7 @@
             <% } %>
         </tr>
         <%
+                }
             }
         %>
     </table>
