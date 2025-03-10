@@ -18,18 +18,15 @@ public class WriteBoardController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpSession session = req.getSession();
+        HttpSession session = req.getSession(false);
         boolean isWriteSuccess = false;
+        PrintWriter out = resp.getWriter();
+
         int user_no = (Integer)session.getAttribute("user_no");
-        if (user_no <= 90000) {
-            resp.sendRedirect("Login.jsp"); // 로그인 페이지로 리다이렉트
-            return;
-        }
         String title = req.getParameter("title");
         String content = req.getParameter("content");
 
         BoardDTO newBoard = new BoardDTO(user_no, title, content);
-        PrintWriter out = resp.getWriter();
 
         WriteBoardService writeBoardService = new WriteBoardService();
         try {
@@ -40,6 +37,13 @@ public class WriteBoardController extends HttpServlet {
 
         if(isWriteSuccess) {
             resp.sendRedirect("ShowBoardListProcess.jsp");
+        }else {
+            out.println("<html><body>");
+            out.println("<script type='text/javascript'>");
+            out.println("alert('게시글 작성에 실패했습니다.');");
+            out.println("window.location.href = 'WriteBoard.jsp';");
+            out.println("</script>");
+            out.println("</body></html>");
         }
     }
 }

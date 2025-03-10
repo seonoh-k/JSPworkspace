@@ -41,9 +41,9 @@ public class UserDAO {
         try (PreparedStatement psmt = con.prepareStatement(sql)) {
 
             psmt.setString(1, newUser.getUser_id());
-            psmt.setString(2, newUser.getUser_pass());
-            psmt.setString(3, newUser.getUser_email());
-            psmt.setString(4, newUser.getUser_name());
+            psmt.setString(2, newUser.getUser_email());
+            psmt.setString(3, newUser.getUser_name());
+            psmt.setString(4, newUser.getUser_pass());
             psmt.setString(5, newUser.getUser_gender());
             psmt.setDate(6, newUser.getUser_birth());
 

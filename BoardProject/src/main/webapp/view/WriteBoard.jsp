@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ page trimDirectiveWhitespaces="true"%>
 
+<%
+    if (session.getAttribute("user_no") == null) {
+                out.println("<html><body>");
+                out.println("<script type='text/javascript'>");
+                out.println("alert('먼저 로그인 해주세요.');");
+                out.println("window.location.href = 'Login.jsp';");  // 로그인 페이지로 리디렉션
+                out.println("</script>");
+                out.println("</body></html>");
+                return;
+            }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

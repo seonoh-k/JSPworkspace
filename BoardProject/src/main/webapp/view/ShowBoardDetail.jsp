@@ -17,7 +17,7 @@
     <title></title>
 </head>
 <body>
-    <table>
+    <table border="1">
         <%
             ArrayList<BoardDetailDTO> boardDetailList = (ArrayList<BoardDetailDTO>)request.getAttribute("boardDetailList");
             BoardDetailDTO board = boardDetailList.get(0);
@@ -31,6 +31,16 @@
         <tr>
             <td colspan=4><%= board.getB_content() %></td>
         </tr>
+        <%
+            if(session.getAttribute("user_id") == board.getB_user_id()) {
+        %>
+        <tr>
+            <td><button onclick="location.href='UpdateBoardProcess.jsp?board_no=<%= board.getBoard_no() %>'">수정</button></td>
+            <td><button onclick="javascript:if(confirm(정말 삭제하시겠습니까?)) location.href='DeleteBoardProcess.jsp?board_no=<%= board.getBoard_no() %>'">삭제</button></td>
+        </tr>
+        <%
+            }
+        %>
         <%
             for (int i=0; i<boardDetailList.size(); i++) {
                 BoardDetailDTO comment = boardDetailList.get(i);

@@ -44,7 +44,7 @@ public class BoardDAO {
     public ArrayList<BoardDTO> selectBoardList() throws Exception{
 
         String sql = "SELECT BOARD_NO, USER_NO, TITLE, CREATE_AT, UPDATE_AT, USER_ID " +
-                "FROM BOARDS JOIN USERS USING (USER_NO)";
+                "FROM BOARDS JOIN USERS USING (USER_NO) ORDER BY CREATE_AT DESC";
         BoardDTO newBoard = null;
         ArrayList<BoardDTO> boardList = new ArrayList<>();
 
@@ -144,5 +144,23 @@ public class BoardDAO {
         }
 
         return boardDetailList;
+    }
+
+    public int deleteBoard(String board_no) throws Exception{
+
+        String sql = "DELETE BOARDS WHERE BOARD_NO = ?";
+        int result = 0;
+
+        try (PreparedStatement psmt = con.prepareStatement(sql)) {
+
+            psmt.setInt(1, Integer.parseInt(board_no));
+
+            result = psmt.executeUpdate();
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }
