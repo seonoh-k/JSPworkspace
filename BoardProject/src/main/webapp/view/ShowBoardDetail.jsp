@@ -14,6 +14,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../script/writeComment.js"></script>
     <title></title>
 </head>
 <body>
@@ -43,23 +44,52 @@
             }
         %>
         <%
+            int boardNo = board.getBoard_no();
+            request.setAttribute("board_no", board.getBoard_no());
+        %>
+        <tr>
+            <td><jsp:include page="WriteComment.jsp"/></td>
+        </tr>
+        <%
             if (board.getC_create_at() != null) {
                 for (int i=0; i<boardDetailList.size(); i++) {
                     BoardDetailDTO comment = boardDetailList.get(i);
                     String commentDate = (comment.getC_update_at() == null) ? sdf.format(comment.getC_create_at()) : sdf.format(comment.getC_update_at());
+                    request.setAttribute("comment_no", comment.getComment_no());
         %>
-        <tr>
-            <% if(comment.getRef() == 0) { %>
-            <td><%= comment.getC_user_id() %></td>
-            <td colspan=2><%= comment.getC_content() %></td>
-            <td><%= commentDate %></td>
-            <%}else {%>
-            <td>↳</td>
-            <td><%= comment.getC_user_id() %></td>
-            <td><%= comment.getC_content() %></td>
-            <td><%= commentDate %></td>
+        <% if(comment.getRef() == 0) { %>
+            <tr onclick="writeCoComment(<%=comment.getComment_no()%>, <%=boardNo%>)">
+                <td><%= comment.getC_user_id() %></td>
+                <td colspan=2><%= comment.getC_content() %></td>
+                <td><%= commentDate %></td>
+                <%
+                    if(sessionId != null && sessionId.equals(comment.getC_user_id())) {
+                %>
+                    <td><button onclick="location.href='SelectMyCommentProcess.jsp?comment_no=<%= comment.getComment_no() %>'">수정</button></td>
+                    <td><button onclick="javascript:if(confirm('정말 삭제하시겠습니까?')) location.href='DeleteCommentProcess.jsp?comment_no=<%= comment.getComment_no() %>'">삭제</button></td>
+                <% } %>
+            </tr>
+            <tr id = "CoComment<%=comment.getComment_no()%>" style = "display : none">
+                <td id = "writeCoComment<%=comment.getComment_no()%>"></td>
+            </tr>
+        <%}else {%>
+            <tr onclick="writeCoComment(<%=comment.getComment_no()%>, <%=boardNo%>)">
+                <td>↳</td>
+                <td><%= comment.getC_user_id() %></td>
+                <td colspan=2><%= comment.getC_content() %></td>
+                <td><%= commentDate %></td>
+                <%
+                    if(sessionId != null && sessionId.equals(comment.getC_user_id())) {
+                %>
+                    <td><button onclick="location.href='SelectMyCommentProcess.jsp?comment_no=<%= comment.getComment_no() %>'">수정</button></td>
+                    <td><button onclick="javascript:if(confirm('정말 삭제하시겠습니까?')) location.href='DeleteCommentProcess.jsp?comment_no=<%= comment.getComment_no() %>'">삭제</button></td>
+                <% } %>
+            </tr>
+            <tr id = "CoComment<%=comment.getComment_no()%>" style = "display : none">
+                <td>↳</td>
+                <td id = "writeCoComment<%=comment.getComment_no()%>"></td>
+            </tr>
             <% } %>
-        </tr>
         <%
                 }
             }

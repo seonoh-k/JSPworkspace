@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ page trimDirectiveWhitespaces="true"%>
 
-<form method = "get" action = "WriteCommentProcess.jsp">
+<form method = "get" action = "WriteCoCommentProcess.jsp">
     <input type ="hidden" name = "user_no" value = "<%= session.getAttribute("user_no") %>">
-    <input type ="hidden" name = "board_no" value = "<%= request.getAttribute("board_no") %>">
+    <input type ="hidden" name = "board_no" value = "<%= request.getParameter("board_no") %>">
+    <input type ="hidden" name = "comment_no" value = "<%= request.getParameter("comment_no") %>">
     <textarea name = "content" id = "content" required></textarea>
     <input type = "submit" value = "댓글 등록">
 </form>
+

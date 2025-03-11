@@ -16,7 +16,7 @@ public class UserDAO {
 
     public int login(String id, String pwd) throws Exception {
 
-        String sql = "SELECT USER_ID, USER_PASS, USER_NO FROM USERS WHERE USER_ID = ? AND USER_PASS = ?";
+        String sql = "SELECT USER_NO FROM USERS WHERE USER_ID = ? AND USER_PASS = ?";
 
         try (PreparedStatement psmt = con.prepareStatement(sql)) {
 
