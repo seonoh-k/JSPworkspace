@@ -52,3 +52,36 @@ function goBack() {
 function goBack(num) {
     history.go(num);
 }
+
+function loginFirst() {
+    alert("먼저 로그인 해주세요.");
+    window.location.href = "Login.jsp";
+}
+function loginFail() {
+    alert("ID 또는 비밀번호가 틀렸습니다.");
+    window.location.href = "Login.jsp";
+}
+function registSuccess() {
+    alert("회원가입에 성공했습니다..");
+    window.location.href = "main.jsp";
+}
+
+function registFail() {
+    alert("회원가입에 실패했습니다.. 다시 시도해주세요.");
+    window.location.href = "UserRegist.jsp";
+}
+
+function deleteCommentSuccess() {
+    alert("댓글을 삭제했습니다.");
+    goBack(-1);
+}
+
+function deleteCommentFail() {
+    alert("댓글을 삭제하지 못했습니다.");
+    goBack(-1);
+}
+
+function writeBoardFail() {
+    alert("게시글을 작성하지 못했습니다.");
+    window.location.href = "WriteBoard.jsp";
+}

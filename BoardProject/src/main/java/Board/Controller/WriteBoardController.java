@@ -38,12 +38,8 @@ public class WriteBoardController extends HttpServlet {
         if(isWriteSuccess) {
             resp.sendRedirect("ShowBoardListProcess.jsp");
         }else {
-            out.println("<html><body>");
-            out.println("<script type='text/javascript'>");
-            out.println("alert('게시글 작성에 실패했습니다.');");
-            out.println("window.location.href = 'WriteBoard.jsp';");
-            out.println("</script>");
-            out.println("</body></html>");
+            out.println("<script src='../script/writeComment.js'></script>");
+            out.println("<script type='text/javascript'>writeBoardFail();</script>");
         }
     }
 }

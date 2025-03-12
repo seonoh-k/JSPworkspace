@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 public class UserLoginController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String id = req.getParameter("id");
         String pwd = req.getParameter("pwd");
@@ -31,12 +31,8 @@ public class UserLoginController extends HttpServlet {
             session.setAttribute("user_no", user_no);
             resp.sendRedirect("main.jsp");
         }else {
-            out.println("<html><body>");
-            out.println("<script type='text/javascript'>");
-            out.println("alert('ID 또는 비밀번호가 틀렸습니다.');");
-            out.println("window.location.href = 'Login.jsp';");  // 로그인 페이지로 리디렉션
-            out.println("</script>");
-            out.println("</body></html>");
+            out.println("<script src='../script/writeComment.js'></script>");
+            out.println("<script type='text/javascript'>loginFail();</script>");
         }
     }
 }

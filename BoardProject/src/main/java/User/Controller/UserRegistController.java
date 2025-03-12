@@ -46,21 +46,13 @@ public class UserRegistController extends HttpServlet {
             boolean isRegisted = userRegistService.registUser(newUser);
 
             if(isRegisted) {
-                out.println("<html><body>");
-                out.println("<script type='text/javascript'>");
-                out.println("alert('회원가입이 완료되었습니다.');");
-                out.println("window.location.href = 'main.jsp';");
-                out.println("</script>");
-                out.println("</body></html>");
+                out.println("<script src='../script/writeComment.js'></script>");
+                out.println("<script type='text/javascript'>registSuccess();</script>");
             }
 
         }catch(Exception e) {
-            out.println("<html><body>");
-            out.println("<script type='text/javascript'>");
-            out.println("alert('회원가입에 실패했습니다. 다시 시도해주세요');");
-            out.println("window.location.href = 'UserRegist.jsp';");
-            out.println("</script>");
-            out.println("</body></html>");
+            out.println("<script src='../script/writeComment.js'></script>");
+            out.println("<script type='text/javascript'>registFail();</script>");
         }
 
     }

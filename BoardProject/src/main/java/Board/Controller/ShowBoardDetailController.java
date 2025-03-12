@@ -26,12 +26,8 @@ public class ShowBoardDetailController extends HttpServlet {
         PrintWriter out = resp.getWriter();
 
         if (session.getAttribute("user_no") == null) {
-            out.println("<html><body>");
-            out.println("<script type='text/javascript'>");
-            out.println("alert('먼저 로그인 해주세요.');");
-            out.println("window.location.href = 'Login.jsp';");  // 로그인 페이지로 리디렉션
-            out.println("</script>");
-            out.println("</body></html>");
+            out.println("<script src='../script/writeComment.js'></script>");
+            out.println("<script type='text/javascript'>loginFirst();</script>");
             return;
         }
 

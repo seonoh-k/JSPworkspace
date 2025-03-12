@@ -9,7 +9,7 @@
     <title>로그인</title>
 </head>
 <body>
-    <form method = "get" action = "LoginProcess.jsp">
+    <form method = "post" action = "LoginProcess.jsp">
         <table>
             <tr>
                 <td>아이디</td>

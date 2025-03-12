@@ -24,23 +24,11 @@ public class DeleteCommentController extends HttpServlet {
         try {
             isDeleteSuccess = deleteCommentService.deleteComment(comment_no);
             if(isDeleteSuccess) {
-                out.println("<html><body>");
                 out.println("<script src='../script/writeComment.js'></script>");
-                out.println("<script type='text/javascript'>");
-                out.println("alert('댓글을 삭제했습니다.');");
-                out.println("goBack(-1);");
-                out.println("</script>");
-                out.println("</body></html>");
-                return;
+                out.println("<script type='text/javascript'>deleteCommentSuccess();</script>");
             }else {
-                out.println("<html><body>");
                 out.println("<script src='../script/writeComment.js'></script>");
-                out.println("<script type='text/javascript'>");
-                out.println("alert('댓글 삭제에 실패했습니다.');");
-                out.println("goBack(-1);");
-                out.println("</script>");
-                out.println("</body></html>");
-                return;
+                out.println("<script type='text/javascript'>deleteCommentFail();</script>");
             }
         }catch (Exception e) {
             e.printStackTrace();
