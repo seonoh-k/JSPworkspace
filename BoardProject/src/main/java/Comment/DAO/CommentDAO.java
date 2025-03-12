@@ -143,4 +143,22 @@ public class CommentDAO {
 
         return result;
     }
+
+    public int deleteComment(String comment_no) throws Exception {
+
+        String sql = "DELETE COMMENTS WHERE COMMENT_NO = ?";
+        int result = 0;
+
+        try (PreparedStatement psmt = con.prepareStatement(sql)) {
+
+            psmt.setInt(1, Integer.parseInt(comment_no));
+
+            result = psmt.executeUpdate();
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }

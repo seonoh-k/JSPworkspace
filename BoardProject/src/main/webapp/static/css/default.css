@@ -158,6 +158,7 @@
     font-family: "Song Myung", serif;
     font-weight: 400;
     font-style: normal;
+    font-color: var(--white-5);
     background-color: var(--black-bg-container);
 
   }

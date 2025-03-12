@@ -5,7 +5,7 @@
     <input type ="hidden" name = "user_no" value = "<%= session.getAttribute("user_no") %>">
     <input type ="hidden" name = "board_no" value = "<%= request.getParameter("board_no") %>">
     <input type ="hidden" name = "comment_no" value = "<%= request.getParameter("comment_no") %>">
-    <textarea name = "content" id = "content" required></textarea>
+    <textarea cols="30" rows="1" name = "content" id = "content" required></textarea>
     <input type = "submit" value = "댓글 등록">
 </form>
 

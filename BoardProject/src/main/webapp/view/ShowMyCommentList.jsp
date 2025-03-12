@@ -13,15 +13,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>내가 쓴 댓글 목록</title>
+    <style>
+            table {
+                width : 1000px;
+            }
+            table th {
+                height : 20px;
+            }
+            table td {
+                height : 30px;
+            }
+        </style>
 </head>
 <body>
     <table>
         <tr>
-            <td>글 번호</td>
-            <td colspan=3>댓글 내용</td>
-            <td>작성자</td>
-            <td>작성일자</td>
+            <th>글 번호</th>
+            <th>댓글 내용</th>
+            <th>작성자</th>
+            <th>작성일자</th>
         </tr>
         <%
             ArrayList<CommentDTO> commentList = (ArrayList<CommentDTO>)request.getAttribute("commentList");
@@ -31,7 +42,7 @@
         %>
                     <tr onclick="location.href='ShowBoardDetailProcess.jsp?board_no=<%= comment.getBoard_no() %>'">
                         <td><%= comment.getBoard_no() %></td>
-                        <td colspan=3><%= comment.getContent() %></td>
+                        <td><%= comment.getContent() %></td>
                         <td><%= comment.getUser_id() %></td>
                         <td><%= date %></td>
                     </tr>

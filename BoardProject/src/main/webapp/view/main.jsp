@@ -23,18 +23,11 @@ pageEncoding="UTF-8"  isELIgnored="false"%>
 
 </head>
 <body>
-    <%
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=utf-8");
-    %>
     <jsp:include page='<%="/static/html/"+id+".html"%>'/>
     <!-- 여기다가 MAIN 코드 작성-->
     <!-- 전체 배경색 var(--black-bg-container);-->
     <!-- Content 배경색 var(--black-5);-->
     <!-- Content 글자색 var(--white-5; 추천-->
-
-
-
 
 
 

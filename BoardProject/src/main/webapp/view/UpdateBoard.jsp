@@ -7,7 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <script src="../script/writeComment.js"></script>
+    <title>게시글 수정</title>
 </head>
 <body>
     <%
@@ -17,7 +18,8 @@
             <form method="post" action="UpdateBoardProcess.jsp">
                 <input type = "hidden" name = "board_no" id = "board_id" value = "<%= modifyBoard.getBoard_no() %>">
                 <input type = "text" name = "title" id = "title" value="<%= modifyBoard.getTitle() %>">
-                <input type = "submit" value = "수정"><br>
+                <input type = "submit" value = "수정">
+                <input type = "button" value = "취소" onclick = "goBack()"><br>
                 <textarea name = "content" id = "content" rows="4" cols="50"><%= modifyBoard.getContent() %></textarea>
             </form>
     <%

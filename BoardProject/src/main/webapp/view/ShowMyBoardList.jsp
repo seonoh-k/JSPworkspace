@@ -14,15 +14,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>내가 쓴 글 목록</title>
+    <style>
+        table {
+            width : 1000px;
+        }
+        table th {
+            height : 20px;
+        }
+        table td {
+            height : 30px;
+        }
+    </style>
 </head>
 <body>
     <table>
         <tr>
-            <td>글 번호</td>
-            <td colspan=3>제목</td>
-            <td>작성자</td>
-            <td>작성일자</td>
+            <th>글 번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일자</th>
         </tr>
         <%
             ArrayList<BoardDTO> boardList = (ArrayList<BoardDTO>)request.getAttribute("boardList");
@@ -32,7 +43,7 @@
         %>
         <tr onclick="location.href='ShowBoardDetailProcess.jsp?board_no=<%= board.getBoard_no() %>'">
             <td><%= board.getBoard_no() %></td>
-            <td colspan=3><%= board.getTitle() %></td>
+            <td><%= board.getTitle() %></td>
             <td><%= board.getUser_id() %></td>
             <td><%= date %></td>
         </tr>
