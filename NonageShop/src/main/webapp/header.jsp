@@ -105,7 +105,7 @@
         }
 
         nav#top_menu a:hover{
-            background-image:url(../images/purple.gif);
+            background-image:url(images/purple.gif);
             background-repeat:repeat-x;
             background-position:bottom;
         }
@@ -182,7 +182,7 @@
         footer {
         	margin:10px 0 0 0;
         	height:50px;
-        	background-image: url(../images/under_logo.gif);
+        	background-image: url(images/under_logo.gif);
         	background-repeat: no-repeat;
         	background-position: 40px center;
         }
@@ -232,13 +232,13 @@
         	width: 160px;
         	padding: 7px;
         	border-bottom: 1px dotted #999;
-        	background-image: url(../images/bullet.gif);
+        	background-image: url(images/bullet.gif);
         	background-repeat: no-repeat;
         	background-position: right center;
         }
 
         #sub_menu a:hover {
-        	background-image: url(../images/bullet_orange.gif);
+        	background-image: url(images/bullet_orange.gif);
         	background-repeat: no-repeat;
         	background-position: right center;
         	color: #F90;font-weight:bold; font-size:16px;
@@ -329,7 +329,7 @@
         	margin: 0 0 0 5px; /* 마진을 왼쪽만 줘서 input과의 간격을 벌립니다. */
         	font-weight: bold; /* 글꼴 두께를 두껍게 */
         	color: #FFF; /* 글꼴의 색상은 흰색으로 */
-        	background-image: url(../images/dup.jpg);
+        	background-image: url(images/dup.jpg);
         	/* 백그라운드 이미지를 사용합니다. */
         	background-repeat: repeat-x; /* 백그라운드 이미지를 x축으로 반복 */
         	background-position: center center; /* 백그라운드 이미지의 위치를 중앙으로 위치 */
@@ -353,11 +353,11 @@
         }
 
         form  .submit {
-        	background-image: url(../images/submit_back.jpg);
+        	background-image: url(images/submit_back.jpg);
         }
 
         form  .cancel {
-        	background-image: url(../images/cancel_back.jpg);
+        	background-image: url(images/cancel_back.jpg);
         }
 
     </style>

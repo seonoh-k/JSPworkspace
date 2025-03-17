@@ -15,5 +15,4 @@ public class CartVO {
     private int quantity;
     private int price2;
     private Timestamp indate;
-
 }

@@ -5,6 +5,7 @@ import util.DBManager;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDAO {
 
@@ -142,5 +143,170 @@ public class ProductDAO {
             DBManager.close(conn, pstmt, rs);
         }
         return productList;
+    }
+
+    public int getListCount() {
+
+        int count = 0;
+
+        String sql = "select count(*) from product";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBManager.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                // count(*) 함수를 컬럼명으로 사용할 수 없음
+                count = rs.getInt(1);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            DBManager.close(conn, pstmt, rs);
+        }
+
+        return count;
+    }
+
+    // 관리자 페이지 상품 리스트
+    public ArrayList<ProductVO> adminProductList(int page, int limit) {
+
+        String sql = "select  pseq, name, price1, price2, indate, useyn" +
+                " from (" +
+                "            select rownum rm,p1.* " +
+                "            from ( " +
+                "                       select * " +
+                "                       from product " +
+                "                       order by indate desc " +
+                "                     ) p1 " +
+                "        )p2 " +
+                " where rm >= ? and rm <= ? ";
+
+        int startrow = (page - 1) * limit + 1;
+        int endrow = startrow + limit - 1;
+        ArrayList<ProductVO> productList = new ArrayList<>();
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBManager.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, startrow);
+            pstmt.setInt(2, endrow);
+            rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                ProductVO product = new ProductVO();
+                product.setPseq(rs.getInt("pseq"));
+                product.setName(rs.getString("name"));
+                product.setPrice1(rs.getInt("price1"));
+                product.setPrice2(rs.getInt("price2"));
+                product.setIndate(rs.getTimestamp("indate"));
+                product.setUseyn(rs.getString("useyn"));
+                productList.add(product);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            DBManager.close(conn, pstmt, rs);
+        }
+        return productList;
+    }
+
+    // 관리자 페이지 상품 등록
+    public void adminProductInsert(ProductVO product) {
+
+    }
+
+    public int getSearchListCount(String name) {
+
+        int count = 0;
+
+        String sql = "select count(*) from product where name like '%'||?||'%'";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBManager.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, name);
+            rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                // count(*) 함수를 컬럼명으로 사용할 수 없음
+                count = rs.getInt(1);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            DBManager.close(conn, pstmt, rs);
+        }
+
+        return count;
+    }
+
+    // 관리자 페이지 상품 검색
+    public ArrayList<ProductVO> adminProductSearchList(String name, int page, int limit) {
+
+        ArrayList<ProductVO> productList = new ArrayList<>();
+        String sql = "select  *" +
+                " from (" +
+                "            select rownum rm,p1.* " +
+                "            from ( " +
+                "                       select * " +
+                "                       from product where name like '%'||?||'%' " +
+                "                       order by indate desc " +
+                "                     ) p1 " +
+                "        )p2 " +
+                " where rm >= ? and rm <= ? ";
+
+        int startrow = (page - 1) * limit + 1;
+        int endrow = startrow + limit - 1;
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBManager.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, name);
+            pstmt.setInt(2, startrow);
+            pstmt.setInt(3, endrow);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                ProductVO product = new ProductVO();
+                product.setPseq(rs.getInt("pseq"));
+                product.setName(rs.getString("name"));
+                product.setPrice1(rs.getInt("price1"));
+                product.setPrice2(rs.getInt("price2"));
+                product.setIndate(rs.getTimestamp("indate"));
+                product.setUseyn(rs.getString("useyn"));
+                productList.add(product);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.close(conn, pstmt, rs);
+        }
+        return productList;
+    }
+
+    // 관리자 페이지 상품 상세페이지
+    public ProductVO adminProductDetail(int pseq) {
+
+        return null;
+    }
+
+    // 관리자 페이지 상품 수정
+    public void adminProductUpdate(ProductVO product) {
+        
     }
 }
