@@ -112,21 +112,55 @@ public class QnaDAO {
             DBManager.close(conn, pstmt);
         }
     }
-    
-    // 관리자 페이지 문의 리스트
+
     public ArrayList<QnaVO> adminQnaList() {
-        
-        return null;
+        ArrayList<QnaVO> qnaList = new ArrayList<QnaVO>();
+
+        String sql =  "SELECT qseq, subject, id, indate, rep FROM qna ORDER BY qseq DESC";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBManager.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                QnaVO qna = new QnaVO();
+                qna.setQseq(rs.getInt("qseq"));
+                qna.setSubject(rs.getString("subject"));
+                qna.setId(rs.getString("id"));
+                qna.setRep(rs.getString("rep"));
+                qna.setIndate(rs.getTimestamp("indate"));
+
+                qnaList.add(qna);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.close(conn, pstmt, rs);
+        }
+
+        return qnaList;
     }
-    
-    // 관리자 페이지 문의 상세페이지
-    public QnaVO adminQnaDetail(int qseq) {
-        
-        return null;
-    }
-    
-    // 관리자 페이지 문의 답글 입력
-    public void adminQnaInsertReply(QnaVO qna) {
-        
+
+    public void adminQnaInsertReply(QnaVO qnaVO) {
+        String sql = "UPDATE qna SET reply = ?, rep = 2 WHERE qseq = ?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DBManager.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, qnaVO.getReply());
+            pstmt.setInt(2, qnaVO.getQseq());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.close(conn, pstmt);
+        }
     }
 }

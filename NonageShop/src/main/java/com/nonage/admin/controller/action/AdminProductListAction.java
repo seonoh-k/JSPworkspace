@@ -3,6 +3,7 @@ package com.nonage.admin.controller.action;
 import com.nonage.controller.action.Action;
 import com.nonage.dao.ProductDAO;
 import com.nonage.dto.ProductVO;
+import com.nonage.dto.WorkerVO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ public class AdminProductListAction implements Action {
         String url = "admin/product/AdminProductList.jsp";
 
         HttpSession session = req.getSession(false);
+        WorkerVO admin = (WorkerVO) session.getAttribute("admin");
         ProductDAO pDao = ProductDAO.getInstance();
 
         // 전체 글 개수 받아오기
@@ -51,7 +53,7 @@ public class AdminProductListAction implements Action {
             endpage = startpage + 10 - 1;
         }
 
-        if(session == null) {
+        if(admin == null) {
             url = "NonageServlet?command=admin_login_form";
         }else {
             ArrayList<ProductVO> productList = pDao.adminProductList(page, limit);

@@ -24,7 +24,7 @@ public class WorkerDAO {
     public WorkerVO getAdmin(String id, String pwd) {
 
         String sql = "select * from worker where id = ? and pwd = ?";
-        WorkerVO admin = new WorkerVO();
+        WorkerVO admin = null;
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -38,6 +38,7 @@ public class WorkerDAO {
             rs = pstmt.executeQuery();
 
             if(rs.next()) {
+                admin = new WorkerVO();
                 admin.setId(rs.getString("id"));
                 admin.setPwd(rs.getString("pwd"));
                 admin.setName(rs.getString("name"));

@@ -74,20 +74,26 @@ public class ActionFactory {
             action = new AdminLogoutAction();
         }else if(command.equals("admin_product_list")) {
             action = new AdminProductListAction();
-        }else if(command.equals("admin_product_deatil")) {
+        }else if(command.equals("admin_product_detail")) {
             action = new AdminProductDetailAction();
+        }else if(command.equals("admin_product_insert_form")) {
+            action = new AdminProductInsertFormAction();
         }else if(command.equals("admin_product_insert")) {
-            action = new AdminProductInsertction();
+            action = new AdminProductInsertAction();
         }else if(command.equals("admin_product_search")) {
             action = new AdminProductSearchAction();
         }else if(command.equals("admin_product_update")) {
             action = new AdminProductUpdateAction();
+        }else if(command.equals("admin_product_update_form")) {
+            action = new AdminProductUpdateFormAction();
         }else if(command.equals("admin_qna_list")) {
             action = new AdminQnaListAction();
         }else if(command.equals("admin_qna_detail")) {
             action = new AdminQnaDetailAction();
         }else if(command.equals("admin_qna_insertReply")) {
             action = new AdminQnaInsertReplyAction();
+        }else if(command.equals("admin_qna_insertReply_form")) {
+            action = new AdminQnaInsertReplyFormAction();
         }
 
         return action;

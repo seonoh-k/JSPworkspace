@@ -16,19 +16,19 @@ public class AdminLoginAction implements Action {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String url = "NonageServlet?command=admin_product_list";
+        String url = "admin/worker/AdminLoginFail.jsp";
+        HttpSession session = req.getSession();
 
         String id = req.getParameter("id");
         String pwd = req.getParameter("pwd");
 
         WorkerDAO wDao = WorkerDAO.getInstance();
-        WorkerVO admin = (WorkerVO) wDao.getAdmin(id, pwd);
+        WorkerVO admin = wDao.getAdmin(id, pwd);
 
-        if(admin == null) {
-            url = "NonageServlet?command=admin_login";
-        }else {
-            HttpSession session = req.getSession();
+        if(admin != null) {
+            session.removeAttribute("id");
             session.setAttribute("admin", admin);
+            url = "NonageServlet?command=admin_product_list";
         }
 
         RequestDispatcher dispatcher = req.getRequestDispatcher(url);

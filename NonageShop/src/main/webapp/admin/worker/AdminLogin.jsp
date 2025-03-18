@@ -5,12 +5,11 @@
 
 <%@ include file="../header.jsp" %>
 
-<article>
-    <h1>Admin Login</h1>
+<div id="login">
     <form method="post" action="NonageServlet?command=admin_login">
         <fieldset>
-        <legend></legend>
-            <label>User ID</label>
+        <legend>Admin Login</legend>
+            <label>Admin ID</label>
             <input name="id" type="text" value="${id}"><br>
             <label>Password</label>
             <input name="pwd" type="password" value=""><br>
@@ -20,6 +19,6 @@
             <input type="submit" value="업무 로그인" class="submit">
         </div>
     </form>
-</article>
+</div>
 
 <%@ include file="../footer.jsp" %>

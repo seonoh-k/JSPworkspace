@@ -99,6 +99,7 @@ public class ProductDAO {
                 product.setPseq(rs.getInt("pseq"));
                 product.setName(rs.getString("name"));
                 product.setKind(rs.getString("kind"));
+                product.setPrice1(rs.getInt("price1"));
                 product.setPrice2(rs.getInt("price2"));
                 product.setContent(rs.getString("content"));
                 product.setImage(rs.getString("image"));
@@ -222,6 +223,30 @@ public class ProductDAO {
     // 관리자 페이지 상품 등록
     public void adminProductInsert(ProductVO product) {
 
+        String sql = "insert into product (pseq, name, kind, price1, price2, price3, content, image)" +
+                " values (product_seq.nextval, ?, ?, ?, ?, ?, ?, ?)";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DBManager.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, product.getName());
+            pstmt.setString(2, product.getKind());
+            pstmt.setInt(3, product.getPrice1());
+            pstmt.setInt(4, product.getPrice2());
+            pstmt.setInt(5, product.getPrice3());
+            pstmt.setString(6, product.getContent());
+            pstmt.setString(7, product.getImage());
+
+            pstmt.executeUpdate();
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            DBManager.close(conn, pstmt);
+        }
     }
 
     public int getSearchListCount(String name) {
@@ -299,14 +324,35 @@ public class ProductDAO {
         return productList;
     }
 
-    // 관리자 페이지 상품 상세페이지
-    public ProductVO adminProductDetail(int pseq) {
-
-        return null;
-    }
-
     // 관리자 페이지 상품 수정
     public void adminProductUpdate(ProductVO product) {
-        
+
+        String sql = "update product set name = ?, kind = ?, price1 = ?, price2 = ?, price3 = ?, " +
+                        "content = ?, image = ?, useyn = ?, bestyn = ? where pseq = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DBManager.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, product.getName());
+            pstmt.setString(2, product.getKind());
+            pstmt.setInt(3, product.getPrice1());
+            pstmt.setInt(4, product.getPrice2());
+            pstmt.setInt(5, product.getPrice3());
+            pstmt.setString(6, product.getContent());
+            pstmt.setString(7, product.getImage());
+            pstmt.setString(8, product.getUseyn());
+            pstmt.setString(9, product.getBestyn());
+            pstmt.setInt(10, product.getPseq());
+
+            pstmt.executeUpdate();
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            DBManager.close(conn, pstmt);
+        }
     }
 }

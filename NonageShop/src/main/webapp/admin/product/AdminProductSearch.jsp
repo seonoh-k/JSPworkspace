@@ -15,20 +15,18 @@
 <%@ include file="../sub_menu.jsp" %>
 
 <article>
-    <div id="wrap" align="center">
-        <h3> 상품리스트 </h3>
-        <div>
+    <div>
+        <h2> 상품리스트 </h2>
+        <div id="search">
             <form method = "post" action = "NonageServlet?command=admin_product_search">
                 <label>상품명</label>
                 <input type="text" name="name" size="30">
-                <div id="buttons">
-                    <input type="submit" value="검색">
-                    <input type="button"  value="전체보기"  class="submit"  onclick="location.href='NonageServlet?command=admin_product_list'">
-                    <input type="button"  value="상품등록"  class="submit"  onclick="location.href='NonageServlet?command=admin_product_insert'">
-                </div>
+                <input type="submit" class="btn" value="검색">
+                <input type="button"  value="전체보기"  class="btn"  onclick="location.href='NonageServlet?command=admin_product_list'">
+                <input type="button"  value="상품등록"  class="btn"  onclick="location.href='NonageServlet?command=admin_product_insert'">
             </form>
         </div>
-        <table>
+        <table id="list">
             <tr>
                 <th>번호</th>
                 <th>상품명</th>
@@ -40,7 +38,7 @@
             <c:forEach var="product" items="${productList}">
                 <tr>
                     <td>${product.pseq}</td>
-                    <td><a href="NonageServlet?command=admin_product_detail&name=${product.name}">${product.name}</a></td>
+                    <td><a href="NonageServlet?command=admin_product_detail&pseq=${product.pseq}">${product.name}</a></td>
                     <td>${product.price1}</td>
                     <td>${product.price2}</td>
                     <td><fmt:formatDate value="${price.indate}" type="date"/></td>

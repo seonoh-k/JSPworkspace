@@ -81,7 +81,7 @@ public class MemberDAO {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
-        MemberVO member = new MemberVO();
+        MemberVO member = null;
 
         try {
             conn = DBManager.getConnection();
@@ -90,6 +90,7 @@ public class MemberDAO {
             pstmt.setString(2, pwd);
             rs = pstmt.executeQuery();
             if (rs.next()){
+                member = new MemberVO();
                 member.setId(rs.getString("id"));
                 member.setPwd(rs.getString("pwd"));
                 member.setName(rs.getString("name"));
