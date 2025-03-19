@@ -41,7 +41,7 @@
                     <td><a href="NonageServlet?command=admin_product_detail&pseq=${product.pseq}">${product.name}</a></td>
                     <td>${product.price1}</td>
                     <td>${product.price2}</td>
-                    <td><fmt:formatDate value="${price.indate}" type="date"/></td>
+                    <td><fmt:formatDate value="${product.indate}" type="date"/></td>
                     <td>
                         <c:choose>
                             <c:when test="${product.useyn.equals('y')}">사용</c:when>

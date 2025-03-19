@@ -94,6 +94,12 @@ public class ActionFactory {
             action = new AdminQnaInsertReplyAction();
         }else if(command.equals("admin_qna_insertReply_form")) {
             action = new AdminQnaInsertReplyFormAction();
+        }else if(command.equals("admin_order_list")) {
+            action = new AdminOrderListAction();
+        }else if(command.equals("admin_order_search")) {
+            action = new AdminOrderSearchAction();
+        }else if(command.equals("admin_order_detail")) {
+            action = new AdminOrderDetailAction();
         }
 
         return action;
